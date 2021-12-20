@@ -17,7 +17,7 @@ resource "aws_eks_node_group" "workers" {
       }
 
   update_config {
-    max_unavailable = 2
+    max_unavailable = 1
   }
 
   instance_types = var.worker_instance_types

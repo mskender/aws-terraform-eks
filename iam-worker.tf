@@ -5,7 +5,7 @@ locals {
 
 resource "aws_iam_role" "eks-worker" {
   
-  name                  = local.eks_iam_role_name
+  name                  = local.eks_worker_iam_role_name
   assume_role_policy    = jsonencode({
     Version = "2012-10-17"
     Statement = [
