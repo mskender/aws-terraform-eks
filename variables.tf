@@ -98,3 +98,9 @@ variable worker_instance_types {
     default = ["t3.medium"]
     description = "Type of worker node instance"
 }
+
+variable kube_config_location {
+    description = "Where to store kube config file after eks creation"
+    type = string
+    
+}

@@ -43,3 +43,18 @@ resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSVPCResourceControlle
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
   role       = aws_iam_role.eks-control.name
 }
+
+resource aws_iam_policy eks-controller-policy {
+  name        = "${var.prefix}-eks-controller-policy${local.suffix}"
+  path        = "/"
+  description = "My test policy"
+  policy = file("${path.module}/policies/elb-controller-policy.json")
+
+}
+
+resource "aws_iam_role_policy_attachment" "cluster_eks-controller-policy" {
+  
+
+  policy_arn = aws_iam_policy.eks-controller-policy.arn
+  role       = aws_iam_role.eks-control.name
+}
