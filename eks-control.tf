@@ -2,7 +2,7 @@ locals {
 
 
     suffix = var.suffix == "" ? "" : "-${var.suffix}"
-    eks_cluster_name = "${var.prefix}-eks${local.suffix}"
+    eks_cluster_name = var.cluster_name == null ? "${var.prefix}-eks${local.suffix}" : var.cluster_name
 }
 
 resource aws_eks_cluster "main" {

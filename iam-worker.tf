@@ -41,3 +41,8 @@ resource "aws_iam_role_policy_attachment" "worker-AmazonEC2ContainerRegistryRead
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.eks-worker.name
 }
+
+resource "aws_iam_instance_profile" "eks-worker" {
+  name = local.eks_worker_iam_role_name
+  role = aws_iam_role.eks-worker.name
+}

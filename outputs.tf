@@ -8,3 +8,24 @@ output kubeconfig_location {
     description = "Where the kubeconfig file is stored"
     value = local.kubeconfig_final_loc
 }
+
+output kubeconfig_context {
+  description = "The cluster's default context"
+  value = "The EKS cluster's default context is ${local.config_cluster_name}"
+}
+
+output cluster_name {
+  description = "Name of the cluster, whether constructed or explicit."
+  value = local.eks_cluster_name
+}
+
+output cluster_endpoint {
+  description = "EKS cluster endpoint."
+  value = aws_eks_cluster.main.endpoint
+}
+
+output cluster_oidc_url {
+  value = replace(local.oidc_url, "https://","")
+  description = "Cluster's OIDC URL"
+}
+

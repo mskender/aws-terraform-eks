@@ -11,6 +11,11 @@ variable create_cluster {
     description = "Disable resource creation in EKS module."
 }
 
+variable cluster_name {
+    default = null
+    type = string
+    description = "EKS cluster name. If ommited, defults to {prefix}-eks-{suffix}"
+}
 variable tags {
 
     default = null
@@ -99,8 +104,31 @@ variable worker_instance_types {
     description = "Type of worker node instance"
 }
 
+variable kubeconfig_cluster_friendly_name {
+    default = null
+    type = string
+    description = "Friendly name of EKS cluster to write to kubeconfig as cluster and context values. If not specified, defaults to either {cluster_name} or {prefix}-eks-{suffix}."
+
+}
+
 variable kube_config_location {
     description = "Where to store kube config file after eks creation"
     type = string
-    
+}
+
+variable write_kube_config {
+    type = bool
+    default = false
+    description = "Whether to write kube config file, to a location defined by { kube_config_location }"
+}
+
+variable export_kube_config {
+    type = bool
+    default = false
+    description = "Whether to export kube config path to KUBECONFIG env var and write to shell RC file defined by { shell_rc } file"
+}
+
+variable shellrc_file {
+    type = string
+    default = "~/.bashrc"
 }
