@@ -11,11 +11,24 @@ variable create_cluster {
     description = "Disable resource creation in EKS module."
 }
 
+variable create_node_group {
+    type = bool
+    default = false
+    description = "Whether to create a default node group attached to EKS cluster."
+}
+
 variable cluster_name {
     default = null
     type = string
     description = "EKS cluster name. If ommited, defults to {prefix}-eks-{suffix}"
 }
+
+variable node_group_name {
+    default = null
+    type = string
+    description = "EKS node group name. If ommited, defults to {prefix}-eks-node-{suffix}"
+}
+
 variable tags {
 
     default = null
@@ -131,4 +144,16 @@ variable export_kube_config {
 variable shellrc_file {
     type = string
     default = "~/.bashrc"
+}
+
+variable enable_oidc {
+    type = bool
+    default = true
+    description = "Whether to create OIDC connector. Primarily used for K8S ServiceAccount (and other API) authorization with IAM"
+}
+
+variable oidc_ca_thumbprint {
+    type = string
+    default = "9e99a48a9960b14926bb7f3b02e22da2b0ab7280"
+    description = "CA Thumbprint, valid for until 2030. Don't touch 'till then."
 }
