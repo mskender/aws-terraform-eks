@@ -29,7 +29,7 @@ module "k8s" {
     # Creates EKS cluster and, optionally, an on-demand autoscaling node group. 
     # Will dump kube config file to disk on location specified by kube_config_location var and optionally set KUBECONFIG env var in shellrc_file. 
     region = "eu-west-1"
-    source = "github.com/mskender/aws-terraform-eks.git?ref=v0.2.0"
+    source = "github.com/mskender/aws-terraform-eks.git?ref=v0.2.1"
     
     cluster_name = local.cluster_name
     eks_subnet_ids = module.network.public_subnets.*.id
