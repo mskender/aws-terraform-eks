@@ -8,7 +8,7 @@ variable region {
 variable create_cluster {
     type = bool
     default = true
-    description = "Disable resource creation in EKS module."
+    description = "Enable/disable resource creation in EKS module."
 }
 
 variable create_node_group {

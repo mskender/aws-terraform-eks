@@ -21,11 +21,11 @@ output cluster_name {
 
 output cluster_endpoint {
   description = "EKS cluster endpoint."
-  value = aws_eks_cluster.main.endpoint
+  value = var.create_cluster ? aws_eks_cluster.main[0].endpoint : null
 }
 
 output cluster_oidc_url {
-  value = replace(local.oidc_url, "https://","")
+  value = var.create_cluster ? replace(local.oidc_url, "https://","") : null
   description = "Cluster's OIDC URL"
 }
 

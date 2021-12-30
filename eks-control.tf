@@ -7,8 +7,9 @@ locals {
 
 resource aws_eks_cluster "main" {
 
+    count = var.create_cluster ? 1:0
     name = local.eks_cluster_name
-    role_arn = aws_iam_role.eks-control.arn
+    role_arn = aws_iam_role.eks-control[0].arn
     version = var.eks_version
 
     dynamic "encryption_config" {

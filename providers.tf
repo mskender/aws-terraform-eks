@@ -3,7 +3,6 @@ terraform {
         aws = {      
             version = ">=3.38.0"
         }
-        kubernetes = {}
-    }
+      }
 }
 
