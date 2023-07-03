@@ -89,6 +89,7 @@ module "k8s" {
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | EKS cluster name. If ommited, defults to {prefix}-eks-{suffix} | `string` | `null` | no |
 | <a name="input_create_cluster"></a> [create\_cluster](#input\_create\_cluster) | Enable/disable resource creation in EKS module. | `bool` | `true` | no |
 | <a name="input_create_node_group"></a> [create\_node\_group](#input\_create\_node\_group) | Whether to create a default node group attached to EKS cluster. | `bool` | `false` | no |
+| <a name="input_eks_admin_list"></a> [eks\_admin\_list](#input\_eks\_admin\_list) | A list of ARN roles to enable eks admins. | `list(string)` | <pre>[<br>  "m5.2xlarge"<br>]</pre> | no |
 | <a name="input_eks_private_api_access"></a> [eks\_private\_api\_access](#input\_eks\_private\_api\_access) | Whether to enable K8S API from inside VPC | `bool` | `true` | no |
 | <a name="input_eks_public_api_access"></a> [eks\_public\_api\_access](#input\_eks\_public\_api\_access) | Whether to enable K8S API from outside VPC | `bool` | `true` | no |
 | <a name="input_eks_public_api_access_cidrs"></a> [eks\_public\_api\_access\_cidrs](#input\_eks\_public\_api\_access\_cidrs) | A list of CIDR's to allow public access from. Defaults to 0/0 | `list(string)` | <pre>[<br>  "0.0.0.0/0"<br>]</pre> | no |
@@ -96,11 +97,11 @@ module "k8s" {
 | <a name="input_eks_service_cidr"></a> [eks\_service\_cidr](#input\_eks\_service\_cidr) | K8S service IP CIDR. Must not overlap with your existing VPC assignments. | `string` | `"10.253.253.0/24"` | no |
 | <a name="input_eks_subnet_ids"></a> [eks\_subnet\_ids](#input\_eks\_subnet\_ids) | A list of subnet ID's to create EKS nodes in | `list(string)` | `[]` | no |
 | <a name="input_eks_version"></a> [eks\_version](#input\_eks\_version) | Kubernetes version. If omitted, latest stable will be used. | `string` | `null` | no |
-| <a name="input_eks_worker_scaling"></a> [eks\_worker\_scaling](#input\_eks\_worker\_scaling) | n/a | <pre>object({<br>        max_size = number<br>        min_size = number<br>        desired_size = number <br>    })</pre> | <pre>{<br>  "desired_size": 1,<br>  "max_size": 1,<br>  "min_size": 1<br>}</pre> | no |
+| <a name="input_eks_worker_scaling"></a> [eks\_worker\_scaling](#input\_eks\_worker\_scaling) | n/a | <pre>object({<br>        max_size = number<br>        min_size = number<br>        desired_size = number<br>    })</pre> | <pre>{<br>  "desired_size": 1,<br>  "max_size": 1,<br>  "min_size": 1<br>}</pre> | no |
 | <a name="input_enable_oidc"></a> [enable\_oidc](#input\_enable\_oidc) | Whether to create OIDC connector. Primarily used for K8S ServiceAccount (and other API) authorization with IAM | `bool` | `true` | no |
 | <a name="input_encryption_config"></a> [encryption\_config](#input\_encryption\_config) | KMS symmetrical encryption key to encrypt secrets | <pre>list(object({<br>    key_arn = string<br>    }))</pre> | `[]` | no |
 | <a name="input_export_kube_config"></a> [export\_kube\_config](#input\_export\_kube\_config) | Whether to export kube config path to KUBECONFIG env var and write to shell RC file defined by { shell\_rc } file | `bool` | `false` | no |
-| <a name="input_kube_config_location"></a> [kube\_config\_location](#input\_kube\_config\_location) | Where to store kube config file after eks creation | `string` | n/a | yes |
+| <a name="input_kube_config_location"></a> [kube\_config\_location](#input\_kube\_config\_location) | Where to store kube config file after eks creation | `string` | `"~/. kube/config"` | no |
 | <a name="input_kubeconfig_cluster_friendly_name"></a> [kubeconfig\_cluster\_friendly\_name](#input\_kubeconfig\_cluster\_friendly\_name) | Friendly name of EKS cluster to write to kubeconfig as cluster and context values. If not specified, defaults to either {cluster\_name} or {prefix}-eks-{suffix}. | `string` | `null` | no |
 | <a name="input_node_group_name"></a> [node\_group\_name](#input\_node\_group\_name) | EKS node group name. If ommited, defults to {prefix}-eks-node-{suffix} | `string` | `null` | no |
 | <a name="input_oidc_ca_thumbprint"></a> [oidc\_ca\_thumbprint](#input\_oidc\_ca\_thumbprint) | CA Thumbprint, valid for until 2030. Don't touch 'till then. | `string` | `"9e99a48a9960b14926bb7f3b02e22da2b0ab7280"` | no |
@@ -116,6 +117,7 @@ module "k8s" {
 
 | Name | Description |
 |------|-------------|
+| <a name="output_certificate_authority"></a> [certificate\_authority](#output\_certificate\_authority) | CA data for the cluster. |
 | <a name="output_cluster_endpoint"></a> [cluster\_endpoint](#output\_cluster\_endpoint) | EKS cluster endpoint. |
 | <a name="output_cluster_name"></a> [cluster\_name](#output\_cluster\_name) | Name of the cluster, whether constructed or explicit. |
 | <a name="output_cluster_oidc_url"></a> [cluster\_oidc\_url](#output\_cluster\_oidc\_url) | Cluster's OIDC URL |
