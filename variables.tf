@@ -54,7 +54,7 @@ variable eks_version {
 }
 
 variable encryption_config {
-  
+
   description = "KMS symmetrical encryption key to encrypt secrets"
   type = list(object({
     key_arn = string
@@ -102,7 +102,7 @@ variable eks_worker_scaling {
     type = object({
         max_size = number
         min_size = number
-        desired_size = number 
+        desired_size = number
     })
     default = {
         max_size = 1
@@ -127,6 +127,7 @@ variable kubeconfig_cluster_friendly_name {
 variable kube_config_location {
     description = "Where to store kube config file after eks creation"
     type = string
+    default = "~/. kube/config"
 }
 
 variable write_kube_config {
@@ -156,4 +157,10 @@ variable oidc_ca_thumbprint {
     type = string
     default = "9e99a48a9960b14926bb7f3b02e22da2b0ab7280"
     description = "CA Thumbprint, valid for until 2030. Don't touch 'till then."
+}
+
+variable eks_admin_list {
+    type = list(string)
+    description = "A list of ARN roles to enable eks admins."
+    default = ["m5.2xlarge"]
 }

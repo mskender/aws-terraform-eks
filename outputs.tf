@@ -29,3 +29,7 @@ output cluster_oidc_url {
   description = "Cluster's OIDC URL"
 }
 
+output certificate_authority {
+  value = var.create_cluster ? aws_eks_cluster.main[0].certificate_authority : null
+  description = "CA data for the cluster."
+}
