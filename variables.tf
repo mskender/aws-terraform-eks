@@ -127,7 +127,7 @@ variable kubeconfig_cluster_friendly_name {
 variable kube_config_location {
     description = "Where to store kube config file after eks creation"
     type = string
-    default = "~/. kube/config"
+    default = "~/.kube/config"
 }
 
 variable write_kube_config {
