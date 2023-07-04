@@ -29,7 +29,22 @@ output cluster_oidc_url {
   description = "Cluster's OIDC URL"
 }
 
+output oidc_provider_arn {
+  description = "ARN of OIDC provider."
+  value = var.enable_oidc && var.create_cluster ? aws_iam_openid_connect_provider.oidc_provider[0].arn : ""
+}
+
 output certificate_authority {
   value = var.create_cluster ? aws_eks_cluster.main[0].certificate_authority : null
   description = "CA data for the cluster."
+}
+
+output worker_group_arn {
+    description = "Worker gorup ARN"
+    value = var.create_cluster && var.create_node_group ?  module.node_group[0].arn : null
+}
+
+output worker_group_role_arn {
+    description = "Worker gorup IAM role ARN"
+    value = var.create_cluster && var.create_node_group ?  module.node_group[0].role_arn : null
 }
