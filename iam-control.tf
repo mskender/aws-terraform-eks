@@ -21,7 +21,7 @@ resource "aws_iam_role" "eks-control" {
   })
   #permissions_boundary  = var.permissions_boundary
   force_detach_policies = true
-  
+
 }
 
 resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSClusterPolicy" {
@@ -31,14 +31,14 @@ resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSClusterPolicy" {
 }
 
 resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSServicePolicy" {
-  
+
   count = var.create_cluster ? 1:0
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
   role       = aws_iam_role.eks-control[0].name
 }
 
 resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSVPCResourceControllerPolicy" {
-  
+
   count = var.create_cluster ? 1:0
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
   role       = aws_iam_role.eks-control[0].name
@@ -54,7 +54,7 @@ resource aws_iam_policy eks-controller-policy {
 }
 
 resource "aws_iam_role_policy_attachment" "cluster_eks-controller-policy" {
-  
+
   count = var.create_cluster ? 1:0
   policy_arn = aws_iam_policy.eks-controller-policy[0].arn
   role       = aws_iam_role.eks-control[0].name
